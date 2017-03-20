@@ -14,10 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-/**
- * Created by Влада on 19.03.2017.
- */
-
 public class WardrobeFragment extends Fragment {
     private static final String GET_NUMBER = "getNumber";
     private static final String PASS_NUMBER = "passNumber";
