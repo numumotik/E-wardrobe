@@ -30,13 +30,14 @@ public class WardrobeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wardrobe, container, false);
+        setHasOptionsMenu(true);
         mNumberRequest = (Button)view.findViewById(R.id.numb_button);
         mNumberView = (TextView)view.findViewById(R.id.number_text_view);
         mCurrNumber = NumberPreferences.getNumber(getContext());
