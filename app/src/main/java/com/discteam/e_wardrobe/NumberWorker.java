@@ -19,8 +19,9 @@ import java.net.URLEncoder;
 public class NumberWorker {
 
     private static final String TAG = "NumberWorker";
-    private static final String GET_NUMBER_URL = "http://10.0.2.2/getnumber.php";
-    private static final String PASS_NUMBER_URL = "http://10.0.2.2/passnumber.php";
+    private static final String GET_NUMBER_URL = "https://point-device-cramp.000webhostapp.com/getnumber.php";
+    private static final String PASS_NUMBER_URL = "https://point-device-cramp.000webhostapp.com/passnumber.php";
+
 
     private Integer mNumber;
 

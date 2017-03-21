@@ -4,8 +4,8 @@
     <string name="get_text">Get</string>
     <string name="return_text">Return</string>
     <string name="hint_get_text">Hint: To receive a number, press the button.</string>
-    <string name="closet_close_title">close_notification</string>
-    <string name="closet_close_text">Closet_is_close</string>
+    <string name="closet_close_title">The wardrobe will be closed soon!</string>
+    <string name="closet_close_text">Please dont forget to pick up your jacket.</string>
     <string name="disable_notification">disable notifications</string>
     <string name="enable_notification">enable notifications</string>
 </resources>
