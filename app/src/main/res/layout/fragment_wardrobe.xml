@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:background="@color/colorAccent">
     <TextView
         android:text="@string/hint_get_text"
         android:layout_height="wrap_content"
@@ -29,5 +30,9 @@
         android:layout_above="@+id/numb_button"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="43dp"
-        android:id="@+id/number_text_view" />
+        android:id="@+id/number_text_view"
+        android:textStyle="normal|bold"
+        android:textAlignment="center"
+        android:textSize="60sp"
+        android:textColor="@color/colorPrimaryDark" />
 </RelativeLayout>
