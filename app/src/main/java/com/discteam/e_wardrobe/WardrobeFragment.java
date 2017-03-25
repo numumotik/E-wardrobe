@@ -117,15 +117,9 @@ public class WardrobeFragment extends Fragment {
     public void updateNumber(){
         String requestInvitation = mCanGetNumber ? getActivity().getResources().getString(R.string.get_text)
                 : getActivity().getResources().getString(R.string.return_text);
-        if (mCanGetNumber)
-        {
-            mNumberView.setVisibility(View.INVISIBLE);
-        }
-        else
-        {
-            mNumberView.setVisibility(View.VISIBLE);
-            mNumberView.setText(String.valueOf(mCurrNumber));
-        }
+        int visibility = mCanGetNumber ? View.INVISIBLE : View.VISIBLE;
+        mNumberView.setVisibility(visibility);
+        mNumberView.setText(String.valueOf(mCurrNumber));
         mNumberRequest.setText(requestInvitation);
     }
 }

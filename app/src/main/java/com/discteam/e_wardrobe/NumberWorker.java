@@ -51,7 +51,7 @@ public class NumberWorker {
         }
     }
 
-    public String getNumber(){
+    public String getNumber() {
         try {
             String str = getUrlString(GET_NUMBER_URL);
             mNumber = Integer.parseInt(str);
@@ -62,7 +62,7 @@ public class NumberWorker {
         return mNumber.toString();
     }
 
-    public void passNumber(){
+    public void passNumber() {
         HttpURLConnection connection = null;
         try {
             URL url = new URL(PASS_NUMBER_URL);
