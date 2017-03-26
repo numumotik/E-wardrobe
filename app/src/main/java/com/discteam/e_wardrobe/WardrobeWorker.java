@@ -16,16 +16,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class NumberWorker {
+public class WardrobeWorker {
 
-    private static final String TAG = "NumberWorker";
+    private static final String TAG = "WardrobeWorker";
     private static final String GET_NUMBER_URL = "https://point-device-cramp.000webhostapp.com/getnumber.php";
     private static final String PASS_NUMBER_URL = "https://point-device-cramp.000webhostapp.com/passnumber.php";
-
+    private static final String LOGIN_URL = "https://point-device-cramp.000webhostapp.com/login.php";
+    private static final String REGISTRATION_URL = "https://point-device-cramp.000webhostapp.com/registration.php";
 
     private Integer mNumber;
 
-    NumberWorker(Integer number){
+    WardrobeWorker(Integer number){
         mNumber = number;
     }
 
@@ -51,7 +52,8 @@ public class NumberWorker {
         }
     }
 
-    public String getNumber() {
+    //TODO: change implementation
+    public Integer getNumber() {
         try {
             String str = getUrlString(GET_NUMBER_URL);
             mNumber = Integer.parseInt(str);
@@ -59,7 +61,7 @@ public class NumberWorker {
         catch (IOException ioe){
             Log.e(TAG, "Failed to get number: ", ioe);
         }
-        return mNumber.toString();
+        return mNumber == 0 ? null : mNumber;
     }
 
     public void passNumber() {
@@ -85,5 +87,10 @@ public class NumberWorker {
         } finally {
             connection.disconnect();
         }
+    }
+
+    //TODO: implementation
+    public void signUp(String login, String password) {
+
     }
 }

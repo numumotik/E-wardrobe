@@ -1,7 +1,5 @@
 package com.discteam.e_wardrobe;
 
-
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,9 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class WardrobeFragment extends Fragment {
-    private static final String GET_NUMBER = "getNumber";
-    private static final String PASS_NUMBER = "passNumber";
+public class WardrobeFragment extends Fragment
+    implements NumberRequestTask.CallBacks {
 
     private Integer mCurrNumber;
     private Button mNumberRequest;
@@ -38,10 +35,10 @@ public class WardrobeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wardrobe, container, false);
         setHasOptionsMenu(true);
-        mNumberRequest = (Button)view.findViewById(R.id.numb_button);
+        mNumberRequest = (Button)view.findViewById(R.id.number_button);
         mNumberView = (TextView)view.findViewById(R.id.number_text_view);
         mCurrNumber = NumberPreferences.getNumber(getContext());
-        mCanGetNumber = mCurrNumber == 0;
+        mCanGetNumber = mCurrNumber == null;
         updateNumber();
 
         mNumberRequest.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +53,7 @@ public class WardrobeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_ecloset_menu, menu);
+        inflater.inflate(R.menu.fragment_wardrobe_menu, menu);
         MenuItem notificationItem = menu.findItem(R.id.menu_item_notification);
         boolean isAlarmOn = NumberPreferences.isAlarmOn(getContext());
         if (isAlarmOn) {
@@ -81,37 +78,17 @@ public class WardrobeFragment extends Fragment {
         }
     }
 
-    private class NumberRequestTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-            String opType = params[0];
-            switch(opType) {
-                case GET_NUMBER:
-                    return new NumberWorker(null).getNumber();
-
-                case PASS_NUMBER:
-                    new NumberWorker(mCurrNumber).passNumber();
-                    return null;
-
-                default:
-                    return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String number) {
-            mCurrNumber = number == null ? 0 : Integer.parseInt(number);
-            NumberPreferences.setNumber(getContext(), mCurrNumber);
-            mCanGetNumber = !mCanGetNumber;
-            updateNumber();
-        }
-
+    @Override
+    public void onNumberRequestCompleted(Integer number) {
+        mCurrNumber = number;
+        NumberPreferences.setNumber(getContext(), mCurrNumber);
+        mCanGetNumber = !mCanGetNumber;
+        updateNumber();
     }
 
     public void doNumberRequest(boolean canGetNumber){
-        String opType = canGetNumber ? GET_NUMBER : PASS_NUMBER;
-        new NumberRequestTask().execute(opType);
+        String opType = canGetNumber ? NumberRequestTask.GET_NUMBER : NumberRequestTask.PASS_NUMBER;
+        new NumberRequestTask(this, mCurrNumber).execute(opType);
     }
 
     public void updateNumber(){
@@ -119,7 +96,9 @@ public class WardrobeFragment extends Fragment {
                 : getActivity().getResources().getString(R.string.return_text);
         int visibility = mCanGetNumber ? View.INVISIBLE : View.VISIBLE;
         mNumberView.setVisibility(visibility);
-        mNumberView.setText(String.valueOf(mCurrNumber));
+        if (!mCanGetNumber) {
+            mNumberView.setText(String.valueOf(mCurrNumber));
+        }
         mNumberRequest.setText(requestInvitation);
     }
 }
