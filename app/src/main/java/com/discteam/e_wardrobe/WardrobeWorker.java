@@ -4,15 +4,12 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -25,68 +22,84 @@ public class WardrobeWorker {
     private static final String REGISTRATION_URL = "https://point-device-cramp.000webhostapp.com/registration.php";
 
     private Integer mNumber;
+    private String mLogin;
+    private String mPassword;
 
-    WardrobeWorker(Integer number){
+    WardrobeWorker(Integer number, String login, String password){
         mNumber = number;
+        mLogin = login;
+        mPassword = password;
     }
 
-    private String getUrlString(String urlSpec) throws IOException {
-        URL url = new URL(urlSpec);
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-        try {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            InputStream in = connection.getInputStream();
-            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throw new IOException(connection.getResponseMessage() + ": with " + urlSpec);
-            }
-            int bytesRead = 0;
-            byte[] buffer = new byte[1024];
-            while ((bytesRead = in.read(buffer)) > 0) {
-                out.write(buffer, 0, bytesRead);
-            }
-            out.close();
-            return new String(out.toByteArray());
-
-        } finally {
-            connection.disconnect();
-        }
-    }
-
-    //TODO: change implementation
-    public Integer getNumber() {
-        try {
-            String str = getUrlString(GET_NUMBER_URL);
-            mNumber = Integer.parseInt(str);
-        }
-        catch (IOException ioe){
-            Log.e(TAG, "Failed to get number: ", ioe);
-        }
-        return mNumber == 0 ? null : mNumber;
-    }
-
-    public void passNumber() {
+    private Integer doNumberRequest(String urlSpec) throws IOException {
         HttpURLConnection connection = null;
+        String result = "";
         try {
-            URL url = new URL(PASS_NUMBER_URL);
+            URL url = new URL(urlSpec);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
             OutputStream outputStream = connection.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-            String postDataNumber = URLEncoder.encode("number", "UTF-8") + "=" + URLEncoder.encode(mNumber.toString(), "UTF-8");
-            writer.write(postDataNumber);
+            String postData = URLEncoder.encode("login", "UTF-8") + "=" + URLEncoder.encode(mLogin, "UTF-8");
+            if (urlSpec.equals(LOGIN_URL) || urlSpec == REGISTRATION_URL) {
+                postData += "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(mPassword, "UTF-8");
+            }
+            if (urlSpec.equals(PASS_NUMBER_URL)) {
+                postData += "&" + URLEncoder.encode("number", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(mNumber), "UTF-8");
+            }
+            writer.write(postData);
             writer.flush();
             writer.close();
             outputStream.close();
-
-            InputStream inputStream = connection.getInputStream();
-            inputStream.close();
-        } catch (MalformedURLException mURLe) {
-            Log.e(TAG, "Failed to parse URL: ", mURLe);
-        } catch (IOException ioe) {
-            Log.e(TAG, "Failed to pass number: ", ioe);
+            if (!urlSpec.equals(PASS_NUMBER_URL)) {
+                InputStream inputStream = connection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+                bufferedReader.close();
+                inputStream.close();
+            }
         } finally {
             connection.disconnect();
         }
+        return result.equals("") ? null : Integer.parseInt(result);
+    }
+
+    public Integer getNumber() {
+        Integer numb = null;
+        try {
+            numb = doNumberRequest(GET_NUMBER_URL);
+        } catch (IOException ioe) {
+            Log.e(TAG, "Failed to get number: ", ioe);
+        }
+        return numb;
+    }
+
+    public void passNumber() {
+        try {
+            doNumberRequest(PASS_NUMBER_URL);
+        } catch (IOException ioe) {
+            Log.e(TAG, "Failed to pass number: ", ioe);
+        }
+    }
+
+    /**
+     * -1 when user was not found
+     * 0 when number was not got
+     * n when number = n
+     **/
+    public Integer signIn() {
+        Integer numb = null;
+        try {
+            numb = doNumberRequest(LOGIN_URL);
+        } catch (IOException ioe) {
+            Log.e(TAG, "Failed to sign in: ", ioe);
+        }
+        return numb;
     }
 
     //TODO: implementation

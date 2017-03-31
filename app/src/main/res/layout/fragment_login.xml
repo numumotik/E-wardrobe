@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@drawable/clothes_background">
 
     <EditText
         android:inputType="text"
@@ -19,12 +20,17 @@
         android:layout_width="150dp"
         android:layout_height="40dp"/>
     <Button
+        android:elevation="4dp"
+        android:background="@drawable/hanger_button"
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sign_in_button_text"/>
 
     <Button
+        android:elevation="4dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/hanger_button"
         android:id="@+id/sign_up_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

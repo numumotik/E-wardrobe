@@ -1,8 +1,13 @@
 package com.discteam.e_wardrobe;
 
 import android.os.AsyncTask;
+import android.util.Log;
+
+import java.io.IOException;
 
 public class NumberRequestTask extends AsyncTask<String, Void, Integer> {
+
+    private static final String TAG = "NumberRequestTask";
 
     public static final String GET_NUMBER = "getNumber";
     public static final String PASS_NUMBER = "passNumber";
@@ -24,18 +29,19 @@ public class NumberRequestTask extends AsyncTask<String, Void, Integer> {
     @Override
     protected Integer doInBackground(String... params) {
         String opType = params[0];
+        String login = params[1];
+        String password = params[2];
+        WardrobeWorker worker = new WardrobeWorker(mNumber, login, password);
         switch(opType) {
             case GET_NUMBER:
-                return new WardrobeWorker(mNumber).getNumber();
+                return worker.getNumber();
 
             case PASS_NUMBER:
-                new WardrobeWorker(mNumber).passNumber();
+                worker.passNumber();
                 return null;
 
             case LOGIN:
-                String login = params[1];
-                String password = params[2];
-                return null;
+                return worker.signIn();
 
             case REGISTRATION:
                 return null;

@@ -88,7 +88,9 @@ public class WardrobeFragment extends Fragment
 
     public void doNumberRequest(boolean canGetNumber){
         String opType = canGetNumber ? NumberRequestTask.GET_NUMBER : NumberRequestTask.PASS_NUMBER;
-        new NumberRequestTask(this, mCurrNumber).execute(opType);
+        String login = NumberPreferences.getLogin(getActivity());
+        String password = NumberPreferences.getPassword(getActivity());
+        new NumberRequestTask(this, mCurrNumber).execute(opType, login, password);
     }
 
     public void updateNumber(){

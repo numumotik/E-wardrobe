@@ -1,5 +1,6 @@
 package com.discteam.e_wardrobe;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -46,7 +47,14 @@ public class LoginFragment extends Fragment
 
     @Override
     public void onNumberRequestCompleted(Integer number) {
-        //TODO: start wardrobe activity if login is success
-        Toast.makeText(getActivity(), "hello", Toast.LENGTH_SHORT).show();
+        if (number == -1) {
+            Toast.makeText(getActivity(), "User was not found", Toast.LENGTH_SHORT).show();
+        } else {
+            NumberPreferences.setLogin(getActivity(), mLoginEditText.getText().toString());
+            NumberPreferences.setPassword(getActivity(), mPasswordEditText.getText().toString());
+            NumberPreferences.setNumber(getActivity(), number);
+            Intent i = WardrobeActivity.newIntent(getActivity());
+            startActivity(i);
+        }
     }
 }
