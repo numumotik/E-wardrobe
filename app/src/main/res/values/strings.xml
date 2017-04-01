@@ -8,4 +8,8 @@
     <string name="closet_close_text">Please dont forget to pick up your jacket.</string>
     <string name="disable_notification">disable notifications</string>
     <string name="enable_notification">enable notifications</string>
+    <string name="sign_in_button_text">Sign in</string>
+    <string name="sign_up_button_text">Sign up</string>
+    <string name="login_hint_text">login</string>
+    <string name="password_hint_text">password</string>
 </resources>
