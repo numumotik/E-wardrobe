@@ -12,4 +12,8 @@
     <string name="sign_up_button_text">Sign up</string>
     <string name="login_hint_text">login</string>
     <string name="password_hint_text">password</string>
+    <string name="join_us_text">Join us!</string>
+    <string name="create_an_account_text">Create an account</string>
+    <string name="incorrect_login_text">Login or password is incorrect</string>
+    <string name="user_exists_text">User already exists</string>
 </resources>

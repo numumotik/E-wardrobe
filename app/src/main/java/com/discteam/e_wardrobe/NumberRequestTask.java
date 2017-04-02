@@ -1,9 +1,6 @@
 package com.discteam.e_wardrobe;
 
 import android.os.AsyncTask;
-import android.util.Log;
-
-import java.io.IOException;
 
 public class NumberRequestTask extends AsyncTask<String, Void, Integer> {
 
@@ -44,6 +41,7 @@ public class NumberRequestTask extends AsyncTask<String, Void, Integer> {
                 return worker.signIn();
 
             case REGISTRATION:
+                worker.signUp();
                 return null;
 
             default:

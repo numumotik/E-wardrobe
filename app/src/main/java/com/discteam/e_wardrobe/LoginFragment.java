@@ -1,7 +1,6 @@
 package com.discteam.e_wardrobe;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,14 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginFragment extends Fragment
     implements NumberRequestTask.CallBacks {
 
+    private static final int MIN_LOGIN_LENGTH = 3;
+    private static final int MIN_PASSWORD_LENGTH = 4;
+
     EditText mLoginEditText;
     EditText mPasswordEditText;
     Button mSignInButton;
+    Button mSignUpButton;
+    TextView mIncorrectLoginTextView;
 
     public static LoginFragment newInstance(){
         return new LoginFragment();
@@ -27,19 +32,30 @@ public class LoginFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        mLoginEditText = (EditText)view.findViewById(R.id.login_edit_text);
-        mPasswordEditText = (EditText)view.findViewById(R.id.password_edit_text);
-        mSignInButton = (Button)view.findViewById(R.id.sign_in_button);
+        mLoginEditText = (EditText)view.findViewById(R.id.fragment_login_login_edit_text);
+        mPasswordEditText = (EditText)view.findViewById(R.id.fragment_login_password_edit_text);
+        mSignInButton = (Button)view.findViewById(R.id.fragment_login_sign_in_button);
+        mSignUpButton = (Button)view.findViewById(R.id.fragment_login_sign_up_button);
+        mIncorrectLoginTextView = (TextView)view.findViewById(R.id.fragment_login_incorrect_login_text_view);
 
         mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String login = mLoginEditText.getText().toString();
                 String password = mPasswordEditText.getText().toString();
-                //TODO: check on correct
-                if (login.length() >= 3 && password.length() >= 5) {
+                if (userDataIsCorrect(login, password)) {
                     new NumberRequestTask(LoginFragment.this, null).execute(NumberRequestTask.LOGIN, login, password);
+                } else {
+                    mIncorrectLoginTextView.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+
+        mSignUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = RegistrationActivity.newIntent(getActivity());
+                startActivity(i);
             }
         });
         return view;
@@ -48,13 +64,39 @@ public class LoginFragment extends Fragment
     @Override
     public void onNumberRequestCompleted(Integer number) {
         if (number == -1) {
-            Toast.makeText(getActivity(), "User was not found", Toast.LENGTH_SHORT).show();
+            mIncorrectLoginTextView.setVisibility(View.VISIBLE);
         } else {
+            mIncorrectLoginTextView.setVisibility(View.GONE);
             NumberPreferences.setLogin(getActivity(), mLoginEditText.getText().toString());
             NumberPreferences.setPassword(getActivity(), mPasswordEditText.getText().toString());
             NumberPreferences.setNumber(getActivity(), number);
             Intent i = WardrobeActivity.newIntent(getActivity());
             startActivity(i);
         }
+    }
+
+    static public boolean userDataIsCorrect(String login, String password) {
+        if (login.length() < MIN_LOGIN_LENGTH || password.length() < MIN_PASSWORD_LENGTH) {
+            return false;
+        }
+        for (int i = 0; i < login.length(); ++i) {
+            char c = login.charAt(i);
+            if (c < 'a' && c > 'z' &&
+                    c < 'A' && c > 'Z' &&
+                    c < '0' && c > '9') {
+                return false;
+            }
+
+        }
+        for (int i = 0; i < password.length(); ++i) {
+            char c = password.charAt(i);
+            if (c < 'a' && c > 'z' &&
+                    c < 'A' && c > 'Z' &&
+                    c < '0' && c > '9') {
+                return false;
+            }
+
+        }
+        return true;
     }
 }

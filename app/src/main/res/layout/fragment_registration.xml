@@ -6,42 +6,32 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@drawable/clothes_background">
-
     <EditText
         android:inputType="text"
         android:hint="@string/login_hint_text"
-        android:id="@+id/fragment_login_login_edit_text"
+        android:id="@+id/fragment_registration_login_edit_text"
         android:layout_width="150dp"
         android:layout_height="40dp"/>
     <EditText
         android:inputType="textPassword"
         android:hint="@string/password_hint_text"
-        android:id="@+id/fragment_login_password_edit_text"
+        android:id="@+id/fragment_registration_password_edit_text"
         android:layout_width="150dp"
         android:layout_height="40dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fragment_login_incorrect_login_text_view"
-        android:text="@string/incorrect_login_text"
+        android:id="@+id/fragment_registration_incorrect_login_text_view"
         android:textColor="@color/colorRed"
         android:layout_marginTop="5dp"
         android:visibility="gone"/>
-    <Button
-        android:elevation="4dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/hanger_button"
-        android:id="@+id/fragment_login_sign_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_in_button_text"/>
 
     <Button
         android:elevation="4dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/hanger_button"
-        android:id="@+id/fragment_login_sign_up_button"
-        android:layout_width="wrap_content"
+        android:id="@+id/fragment_registration_sign_up_button"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/sign_up_button_text"/>
+        android:text="@string/create_an_account_text"/>
 </LinearLayout>

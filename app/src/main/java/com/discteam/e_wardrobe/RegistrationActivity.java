@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
-public class LoginActivity extends SingleFragmentActivity {
+public class RegistrationActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment(){
-        return LoginFragment.newInstance();
+        return RegistrationFragment.newInstance();
     }
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, LoginActivity.class);
+        return new Intent(context, RegistrationActivity.class);
     }
 }
