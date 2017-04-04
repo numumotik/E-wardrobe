@@ -9,6 +9,7 @@ public class NumberPreferences {
     private static final String PREF_LOGIN = "prefLogin";
     private static final String PREF_PASSWORD = "prefPassword";
     private static final String PREF_IS_ALARM_ON = "isAlarmOn";
+    private static final String PREF_IS_USER_REMEMBERED = "isUserRemembered";
 
     public static Integer getNumber(Context context) {
         int number = PreferenceManager.getDefaultSharedPreferences(context)
@@ -53,4 +54,15 @@ public class NumberPreferences {
         PreferenceManager.getDefaultSharedPreferences(context).edit()
                 .putString(PREF_PASSWORD, password).apply();
     }
+
+    public static boolean isUserRemembered(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(PREF_IS_USER_REMEMBERED, false);
+    }
+
+    public static void setUserRemembered(Context context, boolean isOn) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit()
+                .putBoolean(PREF_IS_ALARM_ON, isOn).apply();
+    }
+
 }

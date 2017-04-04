@@ -22,7 +22,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/number_button"
-        android:elevation="0dp" />
+        android:background="@drawable/hanger_button"
+        android:elevation="4dp" />
 
     <TextView
         tools:text="42"
