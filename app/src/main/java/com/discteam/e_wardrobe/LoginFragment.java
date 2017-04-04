@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,9 +25,22 @@ public class LoginFragment extends Fragment
     Button mSignInButton;
     Button mSignUpButton;
     TextView mIncorrectLoginTextView;
+    CheckBox mRememberCheckBox;
 
-    public static LoginFragment newInstance(){
-        return new LoginFragment();
+    public static LoginFragment newInstance() {
+        LoginFragment fragment = new LoginFragment();
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        boolean isUserRemembered = NumberPreferences.isUserRemembered(getContext());
+        if (isUserRemembered) {
+            mLoginEditText.setText(NumberPreferences.getLogin(getContext()));
+            mPasswordEditText.setText(NumberPreferences.getPassword(getContext()));
+            mSignInButton.callOnClick();
+        }
     }
 
     @Nullable
@@ -37,6 +52,16 @@ public class LoginFragment extends Fragment
         mSignInButton = (Button)view.findViewById(R.id.fragment_login_sign_in_button);
         mSignUpButton = (Button)view.findViewById(R.id.fragment_login_sign_up_button);
         mIncorrectLoginTextView = (TextView)view.findViewById(R.id.fragment_login_incorrect_login_text_view);
+        mRememberCheckBox = (CheckBox)view.findViewById(R.id.fragment_login_remember_check_box);
+
+        String login = (String)getActivity().getIntent().getCharSequenceExtra(LoginActivity.EXTRA_LOGIN);
+        String password = (String)getActivity().getIntent().getCharSequenceExtra(LoginActivity.EXTRA_PASSWORD);
+        if (login != null) {
+            mLoginEditText.setText(login);
+        }
+        if (password != null) {
+            mPasswordEditText.setText(password);
+        }
 
         mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +94,7 @@ public class LoginFragment extends Fragment
             mIncorrectLoginTextView.setVisibility(View.GONE);
             NumberPreferences.setLogin(getActivity(), mLoginEditText.getText().toString());
             NumberPreferences.setPassword(getActivity(), mPasswordEditText.getText().toString());
+            NumberPreferences.setUserRemembered(getActivity(), mRememberCheckBox.isChecked());
             NumberPreferences.setNumber(getActivity(), number);
             Intent i = WardrobeActivity.newIntent(getActivity());
             startActivity(i);

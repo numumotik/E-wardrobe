@@ -16,4 +16,5 @@
     <string name="create_an_account_text">Create an account</string>
     <string name="incorrect_login_text">Login or password is incorrect</string>
     <string name="user_exists_text">User already exists</string>
+    <string name="remember_me_text">Remember me</string>
 </resources>

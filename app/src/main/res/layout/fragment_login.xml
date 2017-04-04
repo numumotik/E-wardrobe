@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@drawable/clothes_background">
-
     <EditText
         android:inputType="text"
         android:hint="@string/login_hint_text"
@@ -27,6 +26,12 @@
         android:textColor="@color/colorRed"
         android:layout_marginTop="5dp"
         android:visibility="gone"/>
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remember_me_text"
+        android:layout_marginRight="15dp"
+        android:id="@+id/fragment_login_remember_check_box"/>
     <Button
         android:elevation="4dp"
         android:layout_marginTop="10dp"

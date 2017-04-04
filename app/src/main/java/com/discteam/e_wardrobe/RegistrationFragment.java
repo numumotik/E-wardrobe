@@ -57,7 +57,9 @@ public class RegistrationFragment extends Fragment
             mIncorrectLoginTextView.setVisibility(View.VISIBLE);
         } else {
             mIncorrectLoginTextView.setVisibility(View.GONE);
-            Intent i = LoginActivity.newIntent(getActivity());
+            String login = mLoginEditText.getText().toString();
+            String password = mPasswordEditText.getText().toString();
+            Intent i = LoginActivity.newIntent(getActivity(), login, password);
             startActivity(i);
         }
     }
