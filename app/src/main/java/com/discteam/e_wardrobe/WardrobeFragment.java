@@ -44,6 +44,7 @@ public class WardrobeFragment extends Fragment
         mNumberRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mNumberRequest.setEnabled(false);
                 doNumberRequest(mCanGetNumber);
             }
         });
@@ -84,6 +85,7 @@ public class WardrobeFragment extends Fragment
         NumberPreferences.setNumber(getContext(), mCurrNumber);
         mCanGetNumber = !mCanGetNumber;
         updateNumber();
+        mNumberRequest.setEnabled(true);
     }
 
     public void doNumberRequest(boolean canGetNumber){

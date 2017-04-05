@@ -41,8 +41,7 @@ public class NumberRequestTask extends AsyncTask<String, Void, Integer> {
                 return worker.signIn();
 
             case REGISTRATION:
-                worker.signUp();
-                return null;
+                return worker.signUp();
 
             default:
                 return null;
