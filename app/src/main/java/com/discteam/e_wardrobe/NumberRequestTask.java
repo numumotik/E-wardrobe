@@ -11,8 +11,8 @@ public class NumberRequestTask extends AsyncTask<String, Void, Integer> {
     public static final String LOGIN = "login";
     public static final String REGISTRATION = "registration";
 
-    CallBacks mHost;
-    Integer mNumber;
+    private CallBacks mHost;
+    private Integer mNumber;
 
     public interface CallBacks {
         void onNumberRequestCompleted(Integer number);

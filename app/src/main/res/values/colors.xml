@@ -6,4 +6,5 @@
     <color name="colorLavender">#E6E6FA</color>
     <color name="colorRed">#B22222</color>
     <color name="colorLightGray">#D3D3D3</color>
+    <color name="colorDimGray">#696969</color>
 </resources>

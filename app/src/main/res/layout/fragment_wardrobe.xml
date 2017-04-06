@@ -5,38 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background = "@color/colorLightGray">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/jacket_behem"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:background="@drawable/hippo"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
         android:gravity="center">
+        <TextView
+            tools:text="42"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:textStyle="normal|bold"
+            android:gravity="center"
+            android:layout_marginBottom="45dp"
+            android:layout_weight="0.6"
+            android:id="@+id/number_text_view"
+            android:textAlignment="center"
+            android:textSize="100sp"
+            android:textColor="@color/colorPrimaryDark" />
 
-    <Button
-        android:id="@+id/number_button"
-        android:layout_marginTop="65dp"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:background="@drawable/hanger_button"
-        android:elevation="4dp"
-        android:text="@string/get_text"
-        android:fontFamily="casual"
-        android:textStyle="italic"/>
-
-    <TextView
-        tools:text="42"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:textStyle="normal|bold"
-        android:layout_marginTop="42dp"
-        android:layout_weight="0.6"
-        android:id="@+id/number_text_view"
-        android:textAlignment="center"
-        android:textSize="100sp"
-        android:textColor="@color/colorPrimaryDark" />
+        <Button
+            android:textColor="@color/colorLavender"
+            android:id="@+id/number_button"
+            android:layout_marginBottom="40dp"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/number_button"
+            android:elevation="4dp"
+            android:text="@string/get_text"
+            android:fontFamily="casual"
+            android:textStyle="bold"/>
     </LinearLayout>
+
+
 </LinearLayout>

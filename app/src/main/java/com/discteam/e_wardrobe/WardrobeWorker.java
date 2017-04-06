@@ -20,7 +20,7 @@ public class WardrobeWorker {
 
     private static final String TAG = "WardrobeWorker";
     private static final String REQUEST_ADDRESS = "192.168.43.234";
-   /* private static final String GET_NUMBER_URL = "https://point-device-cramp.000webhostapp.com/getnumber.php";
+    /*private static final String GET_NUMBER_URL = "https://point-device-cramp.000webhostapp.com/getnumber.php";
     private static final String PASS_NUMBER_URL = "https://point-device-cramp.000webhostapp.com/passnumber.php";
     private static final String LOGIN_URL = "https://point-device-cramp.000webhostapp.com/login.php";
     private static final String REGISTRATION_URL = "https://point-device-cramp.000webhostapp.com/registration.php";*/
@@ -40,7 +40,7 @@ public class WardrobeWorker {
         mPassword = password;
     }
 
-    private Integer doNumberRequest(int requestCode) throws IOException {
+    private Integer doNumberRequest(/*String urlSpec*/int requestCode) throws IOException {
         /*HttpURLConnection connection = null;
         String result = "";
         try {
@@ -52,7 +52,7 @@ public class WardrobeWorker {
             OutputStream outputStream = connection.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
             String postData = URLEncoder.encode("login", "UTF-8") + "=" + URLEncoder.encode(mLogin, "UTF-8");
-            if (urlSpec.equals(LOGIN_URL) || urlSpec == REGISTRATION_URL) {
+            if (urlSpec.equals(LOGIN_URL) || urlSpec.equals(REGISTRATION_URL)) {
                 postData += "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(mPassword, "UTF-8");
             }
             if (urlSpec.equals(PASS_NUMBER_URL)) {
@@ -97,7 +97,7 @@ public class WardrobeWorker {
     public Integer getNumber() {
         Integer numb = null;
         try {
-            numb = doNumberRequest(GET_NUMBER_REQUEST_CODE);
+            numb = doNumberRequest(/*GET_NUMBER_URL*/GET_NUMBER_REQUEST_CODE);
         } catch (IOException ioe) {
             Log.e(TAG, "Failed to get number: ", ioe);
         }
@@ -106,7 +106,7 @@ public class WardrobeWorker {
 
     public void passNumber() {
         try {
-            doNumberRequest(mNumber);
+            doNumberRequest(/*PASS_NUMBER_URL*/mNumber);
         } catch (IOException ioe) {
             Log.e(TAG, "Failed to pass number: ", ioe);
         }
@@ -120,7 +120,7 @@ public class WardrobeWorker {
     public Integer signIn() {
         Integer numb = null;
         try {
-            numb = doNumberRequest(LOGIN_REQUEST_CODE);
+            numb = doNumberRequest(/*LOGIN_URL*/LOGIN_REQUEST_CODE);
         } catch (IOException ioe) {
             Log.e(TAG, "Failed to sign in: ", ioe);
         }
@@ -134,7 +134,7 @@ public class WardrobeWorker {
     public Integer signUp() {
         Integer numb = null;
         try {
-            numb = doNumberRequest(REGISTRATION_REQUEST_CODE);
+            numb = doNumberRequest(/*REGISTRATION_URL*/REGISTRATION_REQUEST_CODE);
         } catch (IOException ioe) {
             Log.e(TAG, "Failed to sign up: ", ioe);
         }

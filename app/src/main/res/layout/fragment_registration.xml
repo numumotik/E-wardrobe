@@ -29,7 +29,7 @@
     <Button
         android:elevation="4dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/hanger_button"
+        android:background="@drawable/login_button"
         android:id="@+id/fragment_registration_sign_up_button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"

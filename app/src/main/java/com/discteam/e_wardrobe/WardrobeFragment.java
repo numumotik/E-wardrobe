@@ -1,5 +1,6 @@
 package com.discteam.e_wardrobe;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -73,6 +74,13 @@ public class WardrobeFragment extends Fragment
                 boolean isAlarmOn = NumberPreferences.isAlarmOn(getContext());
                 NotificationService.setServiceAlarm(getContext(), !isAlarmOn);
                 getActivity().invalidateOptionsMenu();
+                return true;
+            case R.id.menu_item_log_out:
+                NumberPreferences.setUserRemembered(getActivity(), false);
+                NumberPreferences.setLogin(getActivity(), "");
+                NumberPreferences.setPassword(getActivity(), "");
+                Intent i = LoginActivity.newIntent(getActivity(), null, null);
+                startActivity(i);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
