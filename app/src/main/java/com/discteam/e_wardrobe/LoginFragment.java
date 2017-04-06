@@ -35,12 +35,7 @@ public class LoginFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boolean isUserRemembered = NumberPreferences.isUserRemembered(getContext());
-        if (isUserRemembered) {
-            mLoginEditText.setText(NumberPreferences.getLogin(getContext()));
-            mPasswordEditText.setText(NumberPreferences.getPassword(getContext()));
-            mSignInButton.callOnClick();
-        }
+
     }
 
     @Nullable
@@ -83,6 +78,22 @@ public class LoginFragment extends Fragment
                 startActivity(i);
             }
         });
+
+        mRememberCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                NumberPreferences.setUserRemembered(getActivity(), isChecked);
+            }
+        });
+
+        boolean isUserRemembered = NumberPreferences.isUserRemembered(getContext());
+        mRememberCheckBox.setChecked(isUserRemembered);
+        if (isUserRemembered) {
+            mLoginEditText.setText(NumberPreferences.getLogin(getContext()));
+            mPasswordEditText.setText(NumberPreferences.getPassword(getContext()));
+            mSignInButton.callOnClick();
+        }
+
         return view;
     }
 
@@ -94,7 +105,6 @@ public class LoginFragment extends Fragment
             mIncorrectLoginTextView.setVisibility(View.GONE);
             NumberPreferences.setLogin(getActivity(), mLoginEditText.getText().toString());
             NumberPreferences.setPassword(getActivity(), mPasswordEditText.getText().toString());
-            NumberPreferences.setUserRemembered(getActivity(), mRememberCheckBox.isChecked());
             NumberPreferences.setNumber(getActivity(), number);
             Intent i = WardrobeActivity.newIntent(getActivity());
             startActivity(i);
@@ -107,18 +117,20 @@ public class LoginFragment extends Fragment
         }
         for (int i = 0; i < login.length(); ++i) {
             char c = login.charAt(i);
-            if (c < 'a' && c > 'z' &&
-                    c < 'A' && c > 'Z' &&
-                    c < '0' && c > '9') {
+            if (    (c < '0') ||
+                    (c > '9' && c < 'A') ||
+                    (c > 'Z' && c < 'a') ||
+                    (c > 'z')) {
                 return false;
             }
 
         }
         for (int i = 0; i < password.length(); ++i) {
             char c = password.charAt(i);
-            if (c < 'a' && c > 'z' &&
-                    c < 'A' && c > 'Z' &&
-                    c < '0' && c > '9') {
+            if (    (c < '0') ||
+                    (c > '9' && c < 'A') ||
+                    (c > 'Z' && c < 'a') ||
+                    (c > 'z')) {
                 return false;
             }
 

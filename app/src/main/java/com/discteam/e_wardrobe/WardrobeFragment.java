@@ -1,5 +1,6 @@
 package com.discteam.e_wardrobe;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -44,6 +45,7 @@ public class WardrobeFragment extends Fragment
         mNumberRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mNumberRequest.setEnabled(false);
                 doNumberRequest(mCanGetNumber);
             }
         });
@@ -73,6 +75,13 @@ public class WardrobeFragment extends Fragment
                 NotificationService.setServiceAlarm(getContext(), !isAlarmOn);
                 getActivity().invalidateOptionsMenu();
                 return true;
+            case R.id.menu_item_log_out:
+                NumberPreferences.setUserRemembered(getActivity(), false);
+                NumberPreferences.setLogin(getActivity(), "");
+                NumberPreferences.setPassword(getActivity(), "");
+                Intent i = LoginActivity.newIntent(getActivity(), null, null);
+                startActivity(i);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -84,6 +93,7 @@ public class WardrobeFragment extends Fragment
         NumberPreferences.setNumber(getContext(), mCurrNumber);
         mCanGetNumber = !mCanGetNumber;
         updateNumber();
+        mNumberRequest.setEnabled(true);
     }
 
     public void doNumberRequest(boolean canGetNumber){

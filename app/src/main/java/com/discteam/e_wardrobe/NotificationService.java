@@ -15,8 +15,8 @@ import android.util.Log;
 public class NotificationService extends IntentService {
 
     private static final String TAG = "NotificationService";
-    private static final int NOTIFICATION_INTERVAL = 1000 * 60;
-    private static final long NOTIFICATION_TIME = SystemClock.elapsedRealtime() + 5000;
+    private static final long NOTIFICATION_INTERVAL = AlarmManager.INTERVAL_DAY;
+    private static final long NOTIFICATION_TIME = 52_200_000;
 
     public NotificationService() {
         super(TAG);

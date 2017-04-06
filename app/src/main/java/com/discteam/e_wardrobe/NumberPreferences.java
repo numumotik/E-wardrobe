@@ -62,7 +62,7 @@ public class NumberPreferences {
 
     public static void setUserRemembered(Context context, boolean isOn) {
         PreferenceManager.getDefaultSharedPreferences(context).edit()
-                .putBoolean(PREF_IS_ALARM_ON, isOn).apply();
+                .putBoolean(PREF_IS_USER_REMEMBERED, isOn).apply();
     }
 
 }

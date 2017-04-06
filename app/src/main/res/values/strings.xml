@@ -3,7 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="get_text">Get</string>
     <string name="return_text">Return</string>
-    <string name="hint_get_text">Hint: To receive a number, press the button.</string>
     <string name="closet_close_title">The wardrobe will be closed soon!</string>
     <string name="closet_close_text">Please dont forget to pick up your jacket.</string>
     <string name="disable_notification">disable notifications</string>
@@ -17,4 +16,6 @@
     <string name="incorrect_login_text">Login or password is incorrect</string>
     <string name="user_exists_text">User already exists</string>
     <string name="remember_me_text">Remember me</string>
+    <string name="logout_text">Log out</string>
+
 </resources>
